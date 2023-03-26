@@ -17,7 +17,16 @@ $ go mod tidy
 $ go install github.com/pressly/goose/v3/cmd/goose@latest
 ```
 
-After that, you need start the PostgreSQL database.
+Next, you'll need to set up the database. Create a new PostgreSQL database and user, and grant the user permission to access the database. You can do this using the psql command-line tool, or any other PostgreSQL management tool:
+```
+CREATE DATABASE test_task;
+```
+```
+CREATE USER test_task_user WITH PASSWORD 'your_password';
+```
+```
+GRANT ALL PRIVILEGES ON DATABASE test_task TO test_task_user;
+```
 
 When the database is up and running, you need to apply the migrations using the Goose CLI tool.
 To do that, run the following command from the project's root directory:
