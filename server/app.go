@@ -9,18 +9,40 @@ import (
 	"os/signal"
 	"time"
 
+	"github.com/Filimonov-ua-d/test_task/pkg"
+	dhttp "github.com/Filimonov-ua-d/test_task/pkg/delivery/http"
+	"github.com/Filimonov-ua-d/test_task/pkg/repository/postgres"
+	pkgUC "github.com/Filimonov-ua-d/test_task/pkg/usecase"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
+	"github.com/rs/zerolog"
 	"github.com/spf13/viper"
 )
 
 type App struct {
 	httpServer *http.Server
+	pkgUC      pkg.UseCase
 }
 
-func NewApp(db *sqlx.DB) *App {
+func NewApp() *App {
 
+	var db *sqlx.DB
 	var err error
+
+	loggerUC := zerolog.New(os.Stdout).
+		With().
+		Timestamp().
+		Str("Layer:", "usecase").
+		Str("Service:", "Home_finances").
+		Logger()
+
+	loggerRepo := zerolog.New(os.Stdout).
+		With().
+		Timestamp().
+		Str("Layer:", "repository").
+		Str("Service:", "Home_finances").
+		Logger()
 
 	user := viper.GetString("postgres.user")
 	password := viper.GetString("postgres.password")
@@ -36,11 +58,24 @@ func NewApp(db *sqlx.DB) *App {
 		log.Panic(err)
 	}
 
-	return &App{}
+	pkgRepo := postgres.NewPkgRepository(db, &loggerRepo)
+
+	return &App{
+		pkgUC: pkgUC.NewPkgUseCase(
+			pkgRepo,
+			&loggerUC,
+			[]byte(viper.GetString("auth.signing_key")),
+			viper.GetString("auth.hash_salt"),
+			viper.GetDuration("auth.token_ttl"),
+			viper.GetString("port")),
+	}
 }
 
 func (a *App) Run(port string) error {
+
 	router := gin.Default()
+
+	dhttp.RegisterHTTPEndpoints(router, a.pkgUC)
 
 	a.httpServer = &http.Server{
 		Addr:           ":" + port,

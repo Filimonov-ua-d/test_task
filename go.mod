@@ -3,8 +3,11 @@ module github.com/Filimonov-ua-d/test_task
 go 1.19
 
 require (
+	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1
 	github.com/gin-gonic/gin v1.9.0
 	github.com/jmoiron/sqlx v1.3.5
+	github.com/lib/pq v1.10.7
+	github.com/rs/zerolog v1.29.0
 	github.com/spf13/viper v1.15.0
 )
 
@@ -22,6 +25,7 @@ require (
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
+	github.com/mattn/go-colorable v0.1.12 // indirect
 	github.com/mattn/go-isatty v0.0.17 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
