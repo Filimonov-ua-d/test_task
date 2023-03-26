@@ -22,7 +22,7 @@ After that, you need start the PostgreSQL database.
 When the database is up and running, you need to apply the migrations using the Goose CLI tool.
 To do that, run the following command from the project's root directory:
 ```bash
-goose -dir migrations postgres "user=postgres dbname=test_task sslmode=disable" up
+goose -dir ./ postgres "user=postgres password=postgres dbname=test_task sslmode=disable" up
 ```
 
 ## Usage
