@@ -8,7 +8,7 @@ CREATE TABLE public.users (
 	CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
-INSERT INTO public.users (username, password_hash) VALUES ('test', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+INSERT INTO public.users (username, password_hash) VALUES ('test', 'eb8d56f1a3113446c89268f994d5f0bf6c4118ea');
 
 CREATE TABLE public.images (
 	id serial4 NOT NULL,
