@@ -7,7 +7,7 @@ To start the application, you should clone the repository and install the requir
 ```bash 
 $ git clone https://github.com/Filimonov-ua-d/test_task.git
 $ cd test_task
-$ go mod download
+$ go mod tidy
 ```
 
 After that, you need start the PostgreSQL database.
