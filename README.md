@@ -8,6 +8,7 @@ To start the application, you should clone the repository and install the requir
 $ git clone https://github.com/Filimonov-ua-d/test_task.git
 $ cd test_task
 $ go mod tidy
+$ go install github.com/pressly/goose/v3/cmd/goose@latest
 ```
 
 After that, you need start the PostgreSQL database.
